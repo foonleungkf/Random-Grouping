@@ -1,3 +1,5 @@
 # App Name : Random-Grouping
+# Programming Lang : Angular 4
+# App Lang : Chinese
 
-This project is small tool for random grouping.
+This is a practise project with small tool for random grouping. 
