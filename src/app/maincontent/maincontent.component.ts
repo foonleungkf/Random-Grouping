@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
-import { GroupedMembersComponent } from './grouped-members/grouped-members.component';
 
 @Component({
    selector: 'app-maincontent',
@@ -7,20 +6,22 @@ import { GroupedMembersComponent } from './grouped-members/grouped-members.compo
    styleUrls: ['./maincontent.component.css']
 })
 
-export class MainContentComponent implements OnInit {
+export class MainContentComponent {
    
    groups = [];
    member_input_text = "";
    openFile(event) {
    	let input = event.target;
-   	var text = ""
+   	var textArray;
+   	var text = "";
+
    	for (var index = 0; index < input.files.length; index++) {
         let reader = new FileReader();
         reader.onload = () => {
             // this 'text' is the content of the file
             text = reader.result;
-			text = text.split("\n");
-            this.member_input_text = text
+			textArray = text.split("\n");
+            this.member_input_text = textArray
         }
         reader.readAsText(input.files[index]);
     };
