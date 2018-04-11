@@ -1,0 +1,32 @@
+<div class="background_left">
+	<br/>
+	<label class="label_left">成員名單 （人名以逗號分開）: </label>
+	<br/>
+	<textarea class="form-control" style="height: 100px; width: 80%; margin: 10px;" #member_input>{{member_input_text}}</textarea>
+	<br/>
+	<br/>
+	<label class="label_left"> 或 </label>
+	<br/>
+	<br/>
+	<label class="label_left">上載成員名單csv/excel檔</label>
+	<input class="label_left" type="file" multiple (change)='openFile($event)' #fileInput>
+	<br/>
+	<br/>
+
+	<label class="label_left">每組人數 : </label>
+	<input type="number"  class="form-control" min='0' style="width: 80px; margin-left: 10px;" #member_people>
+	<br/>
+	<br/>
+
+	<button class="btn btn-danger" style="width: 40%; margin-left: 5px;" (click)="onClickGroupMember(member_input.value, member_people.value)">開始分組</button>
+	<br/>
+	<br/>
+
+</div>
+
+<div class="background_right">
+	<div id="result_members" *ngFor="let result of groups" style="margin: 10px;">
+		<grouped-members [groupNum] = "result.groupNum" [members]="result.groupMembers" ></grouped-members>
+	</div>
+</div>
+
