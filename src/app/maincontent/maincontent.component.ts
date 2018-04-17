@@ -12,19 +12,50 @@ export class MainContentComponent {
    member_input_text = "";
    openFile(event) {
    	let input = event.target;
+   	let file = event.target.files;
    	var textArray;
    	var text = "";
 
-   	for (var index = 0; index < input.files.length; index++) {
-        let reader = new FileReader();
-        reader.onload = () => {
-            // this 'text' is the content of the file
-            text = reader.result;
-			textArray = text.split("\n");
-            this.member_input_text = textArray
-        }
-        reader.readAsText(input.files[index]);
-    };
+   	if (file[0].name != undefined) {
+
+	   	if (!this.validateFile(file[0].name)) {
+	   		alert("Selected files format is not support");
+	   		return;
+	   	}
+
+	   	for (var index = 0; index < input.files.length; index++) {
+	        let reader = new FileReader();
+	        reader.onload = () => {
+	            // this 'text' is the content of the file
+	            text = reader.result;
+				textArray = text.split("\n");
+				console.log(textArray)
+	            
+	            var member_input = "";
+	            for(var i=0; i<textArray.length; i++){
+	            	if (i==0) {
+	            		member_input = textArray[i];
+	            	}
+	            	if (textArray[i] != ""){
+	            		member_input = member_input + "," + textArray[i];
+	            	}
+	            }
+
+	            this.member_input_text = member_input
+	        }
+	        reader.readAsText(input.files[index]);
+	    };
+	   }
+	}
+
+   validateFile(name: String) {
+   	var ext = name.substring(name.lastIndexOf('.') + 1);
+   	if (ext.toLowerCase() == 'csv') {
+   		return true;
+   	}
+   	else {
+   		return false;
+   	}
    }
 
    onClickGroupMember(inputMembers: string, groupPeopleNum){
@@ -57,8 +88,8 @@ export class MainContentComponent {
 	   			groupMembers = []
 	   		} else {
 	   			groupMembers.push(inputMembersArray[i-1]);
-	   			console.log(i)
-	   			console.log(inputMembersArray.length)
+	   			// console.log(i)
+	   			// console.log(inputMembersArray.length)
 	   			//if last members in array
 	   			if (i == inputMembersArray.length){
 	   				var group = {
